@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private TextView textView;
 
+//    private String username = "admin";
+//    private String password = "12345";
+    boolean isValid = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username = usernameView.getText().toString();
                 password = passwordView.getText().toString();
+
                 HashMap<String, String> map1 = new HashMap<String, String>();
                 map1.put("username", username);
                 map1.put("password", password);
@@ -103,13 +107,13 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
-                                try {
-                                    System.out.println((response.getString("username")) + " successfully logged in!");
-                                    textView.setText(response.getString("username") + " successfully logged in!");
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    System.out.println("Error");
-                                }
+                                //                                    System.out.println((response.getString("username")) + "user successfully logged in!");
+                                Intent home_page = new Intent(mContext, HomePage.class);
+                                startActivity(home_page);
+//                                CharSequence text = "User Successfully Logged In";
+//                                int duration = Toast.LENGTH_SHORT;
+//                                Toast toast = Toast.makeText(mContext, text, duration);
+//                                toast.show();
                             }
                         }, new Response.ErrorListener() {
 
@@ -119,19 +123,24 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject error_object = null;
                         if(error.networkResponse.statusCode == 400) {
                             System.out.println("breakpoint");
-//                            try {
-//                                String error_message = new String(error.networkResponse.data,"UTF-8");
-//                                error_object = new JSONObject(error_message);
-//                            } catch (UnsupportedEncodingException | JSONException e) {
-//                                e.printStackTrace();
-//                            }
+                            try {
+                                String error_message = new String(error.networkResponse.data,"UTF-8");
+                                error_object = new JSONObject(error_message);
+                            } catch (UnsupportedEncodingException | JSONException e) {
+                                e.printStackTrace();
+                            }
                             try {
                                 if(error_object.getString("message").equals("username not registered")) {
-                                    System.out.println("username doesn't exist");
-                                    textView.setText("Username not registered!");
+                                    CharSequence text = "Username Not Registered";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(mContext, text, duration);
+                                    toast.show();
                                 }
                                 else {
-                                    textView.setText("Username/password is incorrect. Try Again");
+                                    CharSequence text = "Username/Password is incorrect. Try Again";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(mContext, text, duration);
+                                    toast.show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -150,7 +159,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void launchSignUpActivity(View view) {
 //        Log.d(LOG_TAG, "Button clicked!");
-        Intent intent = new Intent(this, SignUp.class);
-        startActivity(intent);
+        Intent sign_up = new Intent(this, SignUp.class);
+        startActivity(sign_up);
+    }
+    public void launchHomePage(View view) {
+        Intent home_page = new Intent(this, HomePage.class);
+        startActivity(home_page);
     }
 }

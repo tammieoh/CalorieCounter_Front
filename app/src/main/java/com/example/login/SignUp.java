@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 public class SignUp extends AppCompatActivity {
@@ -88,21 +90,41 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
-                            try {
-                                System.out.println((response.getString("username")) + " successfully registered!");
-                                textView.setText(response.getString("username") + " successfully registered!");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                System.out.println("error");
-                            }
+                            CharSequence text = "User Successfully Registered";
+                            int duration = Toast.LENGTH_SHORT;
+                            Toast toast = Toast.makeText(mContext, text, duration);
+                            toast.show();
                         }
                     }, new Response.ErrorListener() {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     // Do something when error occurred
+                    JSONObject error_object = null;
                     if(error.networkResponse.statusCode == 400) {
-                        textView2.setText("Email already exists!");
+                        System.out.println("breakpoint");
+                        try {
+                            String error_message = new String(error.networkResponse.data,"UTF-8");
+                            error_object = new JSONObject(error_message);
+                        } catch (UnsupportedEncodingException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            if(error_object.getString("message").equals("Account already exists")) {
+                                CharSequence text = "Account already exists. Try logging in.";
+                                int duration = Toast.LENGTH_SHORT;
+                                Toast toast = Toast.makeText(mContext, text, duration);
+                                toast.show();
+                            }
+                            else {
+                                CharSequence text = "Username already exists. Choose a different username.";
+                                int duration = Toast.LENGTH_SHORT;
+                                Toast toast = Toast.makeText(mContext, text, duration);
+                                toast.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                     System.out.println(error.getMessage());
                     //                           Toast.makeText(mCtx, e + "error", Toast.LENGTH_LONG).show();
