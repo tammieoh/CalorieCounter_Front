@@ -4,5 +4,9 @@
     <string name="search">Search</string>
     <string name="action_settings">Action Settings</string>
     <string name="app_name">OxyFoodFitness</string>
-    <string name="password">password</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log In</string>
+    <string name="login_title">Login</string>
 </resources>
