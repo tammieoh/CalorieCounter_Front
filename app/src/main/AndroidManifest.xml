@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".HomePage"></activity>
+        <activity android:name=".SearchPage"></activity>
         <activity
             android:name=".SignUp"
             android:label="SignUp"
