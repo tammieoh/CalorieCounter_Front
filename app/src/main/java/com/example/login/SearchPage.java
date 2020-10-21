@@ -1,11 +1,13 @@
 package com.example.login;
 //import android.support.v7.app.AppCompatActivity;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
@@ -19,21 +21,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 
 public class SearchPage extends AppCompatActivity {
@@ -73,7 +67,20 @@ public class SearchPage extends AppCompatActivity {
                 this,
                 android.R.layout.simple_list_item_1,
                 mylist);
+
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                String item = adapter.getItem(position);
+                Intent intent = new Intent(sContext, HomePage.class);
+//                String message = "abcpqr";
+//                Toast.makeText(SearchPage.this, item, Toast.LENGTH_SHORT).show();
+//                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+        });
 //        RequestFuture<JSONArray> future = RequestFuture.newFuture();
         searchUserRequest = new JsonArrayRequest(Request.Method.GET, "http://192.168.0.15:8080/getFoods", null,
                 new Response.Listener<JSONArray>() {
@@ -91,7 +98,6 @@ public class SearchPage extends AppCompatActivity {
                         }
                             System.out.println(mylist.toString());
                             adapter.notifyDataSetChanged();
-                            //                        mylist.add(response.getString());
                     }}
                 ,
         new Response.ErrorListener() {
@@ -106,30 +112,9 @@ public class SearchPage extends AppCompatActivity {
         requestQueue.add(searchUserRequest);
         System.out.println(mylist.size());
         System.out.println("In search class");
-
-
-
-
-        // Add items to Array List
-//        mylist = new ArrayList<>();
-//        mylist.add("C");
-//        mylist.add("C++");
-//        mylist.add("C#");
-//        mylist.add("Java");
-//        mylist.add("Advanced java");
-//        mylist.add("Interview prep with c++");
-//        mylist.add("Interview prep with java");
-//        mylist.add("data structures with c");
-//        mylist.add("data structures with java");
-
-        // Set adapter to ListView
-//        adapter
-//                = new ArrayAdapter<String>(
-//                this,
-//                android.R.layout.simple_list_item_1,
-//                mylist);
-//        listView.setAdapter(adapter);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

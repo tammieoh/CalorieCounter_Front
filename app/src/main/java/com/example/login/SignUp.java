@@ -3,6 +3,7 @@ package com.example.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -90,8 +91,10 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
+                            Intent weight_page = new Intent(mContext, WeightCalc.class);
+                            startActivity(weight_page);
                             CharSequence text = "User Successfully Registered";
-                            int duration = Toast.LENGTH_SHORT;
+                            int duration = Toast.LENGTH_LONG;
                             Toast toast = Toast.makeText(mContext, text, duration);
                             toast.show();
                         }
