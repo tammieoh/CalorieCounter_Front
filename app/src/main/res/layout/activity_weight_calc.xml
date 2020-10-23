@@ -11,13 +11,13 @@
         android:id="@+id/five_per"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginLeft="172dp"
         android:text="5%"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.686" />
 
     <Button
         android:id="@+id/ten_per"
@@ -26,36 +26,34 @@
         android:text="10%"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toEndOf="@+id/five_per"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.686" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/weight"
-        android:layout_width="121dp"
-        android:layout_height="35dp"
+        android:layout_width="160dp"
+        android:layout_height="37dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
+        android:layout_marginBottom="48dp"
         android:hint=""
         app:layout_constraintBottom_toTopOf="@+id/ten_per"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/weight_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="28dp"
+        android:layout_marginBottom="60dp"
         android:text="Weight (lbs): "
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/five_per"
         app:layout_constraintEnd_toStartOf="@+id/weight"
-        app:layout_constraintHorizontal_bias="0.788"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834" />
+        app:layout_constraintHorizontal_bias="0.633"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/body_fat"
@@ -68,7 +66,7 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/five_per"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weight_label"
         app:layout_constraintVertical_bias="0.0" />
@@ -93,7 +91,49 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/weight_label"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.41" />
+
+    <TextView
+        android:id="@+id/sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Sex:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/weight_label"
+        app:layout_constraintEnd_toStartOf="@+id/male"
+        app:layout_constraintHorizontal_bias="0.343"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calculator_title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="40dp"
+        android:text="Male"
+        app:layout_constraintBottom_toTopOf="@+id/weight"
+        app:layout_constraintEnd_toStartOf="@+id/female"
+        app:layout_constraintTop_toBottomOf="@+id/calculator_title"
+        app:layout_constraintVertical_bias="0.866" />
+
+    <Button
+        android:id="@+id/female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:layout_marginBottom="40dp"
+        android:text="Female"
+        app:layout_constraintBottom_toTopOf="@+id/weight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calculator_title"
+        app:layout_constraintVertical_bias="0.866" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
