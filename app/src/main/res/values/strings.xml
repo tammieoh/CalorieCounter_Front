@@ -9,4 +9,24 @@
     <string name="sign_up">Sign Up</string>
     <string name="log_in">Log In</string>
     <string name="login_title">Login</string>
+    <string name="five_per">5%</string>
+    <string name="ten_per">10%</string>
+    <string name="weight_label">Weight (lbs):</string>
+    <string name="height_label">Height:</string>
+    <string name="body_fat">Desired Body Fat Percentage Loss:</string>
+    <string name="confirm_button">Confirm:</string>
+    <string name="calorie_calc">Calorie Calculator</string>
+    <string name="sex">Sex:</string>
+    <string name="age">Age:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="activity_level_label">Activity Level: </string>
+    <string-array name="activity_level">
+<!--        <item>Select Activity Level</item>-->
+        <item>Sedentary (Little or No Exercise)</item>
+        <item>Light (Exercise 1–3 Days/Week)</item>
+        <item>Moderate (Exercise 6–7 Days/Week)</item>
+        <item>Active (Hard Exercise Every Day)</item>
+        <item>Extra Active (Hard Exercise 2+ Times Every Day)</item>
+    </string-array>
 </resources>

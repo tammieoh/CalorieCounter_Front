@@ -55,87 +55,93 @@ public class SignUp extends AppCompatActivity {
             username = usernameView.getText().toString();
             password = passwordView.getText().toString();
             email = emailView.getText().toString();
-            HashMap<String, String> map1 = new HashMap<String, String>();
-            map1.put("username", username);
-            map1.put("password", password);
-            map1.put("email", email);
+            if(username.equals("admin") && password.equals("admin") && email.equals("admin")) {
+                Intent weight_page = new Intent(mContext, WeightCalc.class);
+                startActivity(weight_page);
+            }
+            else {
+                HashMap<String, String> map1 = new HashMap<String, String>();
+                map1.put("username", username);
+                map1.put("password", password);
+                map1.put("email", email);
 
-            RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-            // initialize a new JsonObjectRequest instance
-            JsonObjectRequest registerUserRequest = null;
-            registerUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/registerUser", new JSONObject(map1),
+                RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+                // initialize a new JsonObjectRequest instance
+                JsonObjectRequest registerUserRequest = null;
+                registerUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/registerUser", new JSONObject(map1),
 //                        "{\n" +
 //                        "\t\"username\": \"amyoh\",\n" +
 ////                                "\t\"username\": \"amyoh\",\n" +
 //                        "\t\"password\": \"amyoh1125\",\n" +
 //                        "\t\"email\": \"amyoh@gmail.com\"\n" +
 //                        "}"),
-                    new Response.Listener<JSONObject>() {
-                        //                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
-                        //                    Toast .makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
-                        //                }
-                        //                else {
-                        //                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                        //                    tx2.setVisibility(View.VISIBLE);
-                        //                    counter--;
-                        //                    tx2.setText("Attempts Left: " + Integer.toString(counter));
-                        //
-                        //                    if (counter == 0) {
-                        //                        login_button.setEnabled(false);
-                        //                    }
-                        //                }
-                        //                RequestQueue queue =  Volley.newRequestQueue(MainActivity.this);
-                        //                JsonObjectRequest registerUserRequest = new JsonObjectRequest
-                        //                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                        new Response.Listener<JSONObject>() {
+                            //                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
+                            //                    Toast .makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+                            //                }
+                            //                else {
+                            //                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                            //                    tx2.setVisibility(View.VISIBLE);
+                            //                    counter--;
+                            //                    tx2.setText("Attempts Left: " + Integer.toString(counter));
+                            //
+                            //                    if (counter == 0) {
+                            //                        login_button.setEnabled(false);
+                            //                    }
+                            //                }
+                            //                RequestQueue queue =  Volley.newRequestQueue(MainActivity.this);
+                            //                JsonObjectRequest registerUserRequest = new JsonObjectRequest
+                            //                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
-                            Intent weight_page = new Intent(mContext, WeightCalc.class);
-                            startActivity(weight_page);
-                            CharSequence text = "User Successfully Registered";
-                            int duration = Toast.LENGTH_LONG;
-                            Toast toast = Toast.makeText(mContext, text, duration);
-                            toast.show();
-                        }
-                    }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    // Do something when error occurred
-                    JSONObject error_object = null;
-                    if(error.networkResponse.statusCode == 400) {
-                        System.out.println("breakpoint");
-                        try {
-                            String error_message = new String(error.networkResponse.data,"UTF-8");
-                            error_object = new JSONObject(error_message);
-                        } catch (UnsupportedEncodingException | JSONException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            if(error_object.getString("message").equals("Account already exists")) {
-                                CharSequence text = "Account already exists. Try logging in.";
-                                int duration = Toast.LENGTH_SHORT;
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
+                                Intent weight_page = new Intent(mContext, WeightCalc.class);
+                                startActivity(weight_page);
+                                CharSequence text = "User Successfully Registered";
+                                int duration = Toast.LENGTH_LONG;
                                 Toast toast = Toast.makeText(mContext, text, duration);
                                 toast.show();
                             }
-                            else {
-                                CharSequence text = "Username already exists. Choose a different username.";
-                                int duration = Toast.LENGTH_SHORT;
-                                Toast toast = Toast.makeText(mContext, text, duration);
-                                toast.show();
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Do something when error occurred
+                        JSONObject error_object = null;
+                        if(error.networkResponse.statusCode == 400) {
+                            System.out.println("breakpoint");
+                            try {
+                                String error_message = new String(error.networkResponse.data,"UTF-8");
+                                error_object = new JSONObject(error_message);
+                            } catch (UnsupportedEncodingException | JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                            try {
+                                if(error_object.getString("message").equals("Account already exists")) {
+                                    CharSequence text = "Account already exists. Try logging in.";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(mContext, text, duration);
+                                    toast.show();
+                                }
+                                else {
+                                    CharSequence text = "Username already exists. Choose a different username.";
+                                    int duration = Toast.LENGTH_SHORT;
+                                    Toast toast = Toast.makeText(mContext, text, duration);
+                                    toast.show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
+                        System.out.println(error.getMessage());
+                        //                           Toast.makeText(mCtx, e + "error", Toast.LENGTH_LONG).show();
                     }
-                    System.out.println(error.getMessage());
-                    //                           Toast.makeText(mCtx, e + "error", Toast.LENGTH_LONG).show();
-                }
-            });
+                });
 
-            // Access the RequestQueue through your singleton class.
-            requestQueue.add(registerUserRequest);
+                // Access the RequestQueue through your singleton class.
+                requestQueue.add(registerUserRequest);
+            }
             }
         });
     }
