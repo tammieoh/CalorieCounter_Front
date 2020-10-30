@@ -1,10 +1,11 @@
 package com.example.login;
 
 public class CalorieCalc {
-    String sex, activity_level;
+    String username, sex, activity_level;
     int age, weight, height ;
 
-    public CalorieCalc(String sex, String activity_level, int age, int weight, int height) {
+    public CalorieCalc(String username, String sex, String activity_level, int age, int weight, int height) {
+        this.username = username;
         this.sex = sex;
         this.activity_level = activity_level;
         this.age = age;
@@ -24,7 +25,7 @@ public class CalorieCalc {
         }
         return bmr;
     }
-    public static double recommendedCalories(double bmr, String activity_level) {
+    public static int recommendedCalories(double bmr, String activity_level) {
         int calories = 0;
         if(activity_level.toLowerCase().equals("sedentary")) {
             calories = (int)(bmr * 1.2) - 500;

@@ -57,6 +57,7 @@ public class SignUp extends AppCompatActivity {
             email = emailView.getText().toString();
             if(username.equals("admin") && password.equals("admin") && email.equals("admin")) {
                 Intent weight_page = new Intent(mContext, WeightCalc.class);
+                weight_page.putExtra("username", username);
                 startActivity(weight_page);
             }
             else {
@@ -97,6 +98,7 @@ public class SignUp extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
                                 Intent weight_page = new Intent(mContext, WeightCalc.class);
+                                weight_page.putExtra("username", username);
                                 startActivity(weight_page);
                                 CharSequence text = "User Successfully Registered";
                                 int duration = Toast.LENGTH_LONG;

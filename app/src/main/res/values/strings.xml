@@ -12,7 +12,7 @@
     <string name="five_per">5%</string>
     <string name="ten_per">10%</string>
     <string name="weight_label">Weight (lbs):</string>
-    <string name="height_label">Height:</string>
+    <string name="height_label">Height (ft/in):</string>
     <string name="body_fat">Desired Body Fat Percentage Loss:</string>
     <string name="confirm_button">Confirm:</string>
     <string name="calorie_calc">Calorie Calculator</string>
@@ -21,12 +21,41 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="activity_level_label">Activity Level: </string>
-    <string-array name="activity_level">
-<!--        <item>Select Activity Level</item>-->
-        <item>Sedentary (Little or No Exercise)</item>
-        <item>Light (Exercise 1–3 Days/Week)</item>
-        <item>Moderate (Exercise 6–7 Days/Week)</item>
-        <item>Active (Hard Exercise Every Day)</item>
-        <item>Extra Active (Hard Exercise 2+ Times Every Day)</item>
+    <string-array name="sex">
+        <!--        <item>Select Activity Level</item>-->
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
+    <string-array name="feet">
+        <!--        <item>Select Activity Level</item>-->
+        <item>3\'</item>
+        <item>4\'</item>
+        <item>5\'</item>
+        <item>6\'</item>
+        <item>7\'</item>
+        <item>8\'</item>
+    </string-array>
+    <string-array name="inches">
+        <!--        <item>Select Activity Level</item>-->
+        <item>0\'\'</item>
+        <item>1\'\'</item>
+        <item>2\'\'</item>
+        <item>3\'\'</item>
+        <item>4\'\'</item>
+        <item>5\'\'</item>
+        <item>6\'\'</item>
+        <item>7\'\'</item>
+        <item>8\'\'</item>
+        <item>9\'\'</item>
+        <item>10\'\'</item>
+        <item>11\'\'</item>
+    </string-array>
+    <string-array name="activity_level">
+    <!--        <item>Select Activity Level</item>-->
+    <item>Sedentary (Little or No Exercise)</item>
+    <item>Light (Exercise 1–3 Days/Week)</item>
+    <item>Moderate (Exercise 6–7 Days/Week)</item>
+    <item>Active (Hard Exercise Every Day)</item>
+    <item>Extra Active (Hard Exercise 2+ Times Every Day)</item>
+</string-array>
 </resources>

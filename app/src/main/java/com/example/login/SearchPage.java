@@ -2,6 +2,7 @@ package com.example.login;
 //import android.support.v7.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,13 +22,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class SearchPage extends AppCompatActivity {
@@ -43,6 +47,7 @@ public class SearchPage extends AppCompatActivity {
     ArrayList<String> mylist = new ArrayList<>();
     ArrayList<String> newList = new ArrayList<>();
 
+    String item = "";
 //    private void getArrayValue(){
 //        for(int i = 0; i < mylist.size(); i++) {
 //            newList.add(mylist.get(i));
@@ -69,18 +74,18 @@ public class SearchPage extends AppCompatActivity {
                 mylist);
 
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                String item = adapter.getItem(position);
-                Intent intent = new Intent(sContext, HomePage.class);
-//                String message = "abcpqr";
-//                Toast.makeText(SearchPage.this, item, Toast.LENGTH_SHORT).show();
-//                intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position,
+//                                    long id) {
+//                String item = adapter.getItem(position);
+//                Intent intent = new Intent(sContext, HomePage.class);
+////                String message = "abcpqr";
+////                Toast.makeText(SearchPage.this, item, Toast.LENGTH_SHORT).show();
+////                intent.putExtra(EXTRA_MESSAGE, message);
+//                startActivity(intent);
+//            }
+//        });
 //        RequestFuture<JSONArray> future = RequestFuture.newFuture();
         searchUserRequest = new JsonArrayRequest(Request.Method.GET, "http://192.168.0.15:8080/getFoods", null,
                 new Response.Listener<JSONArray>() {
@@ -96,7 +101,7 @@ public class SearchPage extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                            System.out.println(mylist.toString());
+//                            System.out.println(mylist.toString());
                             adapter.notifyDataSetChanged();
                     }}
                 ,
@@ -110,11 +115,79 @@ public class SearchPage extends AppCompatActivity {
         );
 //        System.out.println(mylist.toString());
         requestQueue.add(searchUserRequest);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                item = adapter.getItem(position);
+
+                SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("name", item);
+                editor.apply();
+
+                System.out.println(item);
+
+                //////////////////////
+                HashMap<String, String> map1 = new HashMap<String, String>();
+                map1.put("item", item);
+                RequestQueue requestQueue = Volley.newRequestQueue(sContext);
+                JsonObjectRequest calorieRequest = null;
+                calorieRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/getCalories", new JSONObject(map1),
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
+                                try {
+//                                    SharedPreferences pref = sContext.getSharedPreferences("myPref", 0);
+//                                    SharedPreferences.Editor editor = pref.edit();
+//                                    editor.putString("name", item);
+//                                    editor.commit();
+
+                                    System.out.println(response.getString("calories"));
+                                    Toast toast = Toast.makeText(sContext, response.getString("calories"),Toast.LENGTH_LONG);
+                                    toast.show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                Intent home_page = new Intent(sContext, HomePage.class);
+                                home_page.putExtra("name", item);
+                                setResult(HomePage.CODE, home_page);
+                                finish();
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Do something when error occurred
+                        JSONObject error_object = null;
+                        System.out.println(error.getMessage());
+                        //                           Toast.makeText(mCtx, e + "error", Toast.LENGTH_LONG).show();
+                    }
+                });
+                requestQueue.add(calorieRequest);
+                //////////////////////
+//                Intent intent = new Intent(sContext, HomePage.class);
+////                String message = "abcpqr";
+////                Toast.makeText(SearchPage.this, item, Toast.LENGTH_SHORT).show();
+////                intent.putExtra(EXTRA_MESSAGE, message);
+//                startActivity(intent);
+            }
+        });
+
         System.out.println(mylist.size());
         System.out.println("In search class");
     }
 
-
+    @Override
+    public void finish() {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("name", item);
+        // setResult(RESULT_OK);
+        setResult(RESULT_OK, returnIntent); //By not passing the intent in the result, the calling activity will get null data.
+        super.finish();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
