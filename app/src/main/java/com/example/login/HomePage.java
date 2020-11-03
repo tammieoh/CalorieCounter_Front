@@ -66,11 +66,13 @@ public class HomePage extends AppCompatActivity {
         // to the parentItemAdapter.
         // These arguments are passed
         // using a method ParentItemList()
-        ParentAdapter
+
                 parentItemAdapter
                 = new ParentAdapter(
                 ParentItemList(breakfastItemList, lunchItemList, dinnerItemList, snackItemList));
-
+//        breakfastItemList.add(new ChildItem("raisin bran"));
+//        breakfastItemList.add(new ChildItem("kelp"));
+//        breakfastItemList.add(new ChildItem("jimmy neutron"));
         // Set the layout manager
         // and adapter for items
         // of the parent recyclerview
@@ -201,7 +203,7 @@ public class HomePage extends AppCompatActivity {
            else {
                SnackList((passedItem));
            }
-           parentItemAdapter = new ParentAdapter(ParentItemList(breakfastItemList, lunchItemList, dinnerItemList, snackItemList));
+//           parentItemAdapter = new ParentAdapter(ParentItemList(breakfastItemList, lunchItemList, dinnerItemList, snackItemList));
 //           myDataset.add(passedItem);
 //            parentItemAdapter.
            parentItemAdapter.notifyDataSetChanged();

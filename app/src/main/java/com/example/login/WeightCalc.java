@@ -40,6 +40,7 @@ public class WeightCalc extends AppCompatActivity {
     int lbs, body_per, age_int, weight_int, feet_int, inches_int, height, recommend;
     private Context wContext;
 
+    // code for when the page renders
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight_calc);

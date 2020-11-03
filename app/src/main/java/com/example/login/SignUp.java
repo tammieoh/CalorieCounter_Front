@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
+// sign up page for when new users register
 public class SignUp extends AppCompatActivity {
     Button signup_button, login_button;
     EditText usernameView, passwordView, emailView;
@@ -32,20 +33,28 @@ public class SignUp extends AppCompatActivity {
 
     private Context mContext;
 
+    // when the page is rendered
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // taking the XML file that will work with this SignUp class
         setContentView(R.layout.activity_sign_up);
         mContext = getApplicationContext();
         textView = (TextView)findViewById(R.id.textView2);
         textView2 = (TextView)findViewById(R.id.textView3);
+
+        // buttons at the bottom of the page
         signup_button = (Button)findViewById(R.id.signup_button2);
         login_button = (Button) findViewById(R.id.register_login);
         usernameView = (EditText) findViewById(R.id.username);
 //        username.getText().toString();
+
+        // edit texts are used to grab the input that the user types in
         passwordView = (EditText)findViewById((R.id.password));
         emailView = (EditText)findViewById((R.id.email));
 
+
+        // when the signup button is clicked, it will create a request and send to register endpoint call
         signup_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,11 +64,16 @@ public class SignUp extends AppCompatActivity {
             username = usernameView.getText().toString();
             password = passwordView.getText().toString();
             email = emailView.getText().toString();
+
+            // if the username, password, email is admint, then go straight to the home page
             if(username.equals("admin") && password.equals("admin") && email.equals("admin")) {
                 Intent weight_page = new Intent(mContext, WeightCalc.class);
                 weight_page.putExtra("username", username);
                 startActivity(weight_page);
             }
+
+            // if the username, password, email is of a new user
+            // store the information into a hashmap and create a JSON body request to send to API endpoint
             else {
                 HashMap<String, String> map1 = new HashMap<String, String>();
                 map1.put("username", username);
@@ -76,6 +90,9 @@ public class SignUp extends AppCompatActivity {
 //                        "\t\"password\": \"amyoh1125\",\n" +
 //                        "\t\"email\": \"amyoh@gmail.com\"\n" +
 //                        "}"),
+
+                        // once the API endpoint returns a response,
+                        // users should be taken to the CalorieCalculator page
                         new Response.Listener<JSONObject>() {
                             //                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
                             //                    Toast .makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
@@ -109,7 +126,7 @@ public class SignUp extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Do something when error occurred
+                        // do something when error occurred
                         JSONObject error_object = null;
                         if(error.networkResponse.statusCode == 400) {
                             System.out.println("breakpoint");

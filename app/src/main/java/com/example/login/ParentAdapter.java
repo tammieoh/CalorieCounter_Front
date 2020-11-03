@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentViewHolder> {
@@ -16,7 +17,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
             viewPool
             = new RecyclerView
             .RecycledViewPool();
-    private List<ParentItem> itemList;
+    List<ParentItem> itemList;
 
     ParentAdapter(List<ParentItem> itemList)
     {
@@ -88,6 +89,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
         // Create an instance of the child
         // item view adapter and set its
         // adapter, layout manager and RecyclerViewPool
+        // parentItem.setChildItemList(Arrays.asList(new ChildItem("wef"),new ChildItem("wefwef")));
         ChildAdapter childItemAdapter
                 = new ChildAdapter(
                 parentItem

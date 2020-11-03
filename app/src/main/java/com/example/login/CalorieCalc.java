@@ -1,5 +1,6 @@
 package com.example.login;
 
+// calorie calculator object
 public class CalorieCalc {
     String username, sex, activity_level;
     int age, weight, height ;
@@ -12,6 +13,9 @@ public class CalorieCalc {
         this.weight = weight;
         this.height = height;
     }
+
+    // this is a method to calculate the body metabolic rate
+    // will be needed to recommend calories
     public static double calculateBMR(String sex, int age, int weight, int height) {
         double bmr = 0;
         double kg = weight * 0.45359237;
@@ -25,6 +29,9 @@ public class CalorieCalc {
         }
         return bmr;
     }
+
+    // method to recommend calories for each user's inputs that was taken in the constructor
+    // different activity levels that are selected
     public static int recommendedCalories(double bmr, String activity_level) {
         int calories = 0;
         if(activity_level.toLowerCase().equals("sedentary")) {

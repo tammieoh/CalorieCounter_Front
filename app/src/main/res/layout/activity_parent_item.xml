@@ -5,8 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <!--Title-->
-
+    <!--Title: Breakfast, Lunch, Snack. or Dinner-->
     <TextView
         android:id="@+id/parent_item_title"
         android:layout_width="wrap_content"
@@ -26,6 +25,8 @@
             android:id="@+id/child_recyclerview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+<!--            android:layout_width="401dp"-->
+<!--            android:layout_height="342dp" />-->
     </LinearLayout>
 
 
