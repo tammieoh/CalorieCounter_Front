@@ -260,6 +260,13 @@ public class WeightCalc extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
                                     Intent home_page = new Intent(wContext, HomePage.class);
+//                                    home_page.putExtra("username", username);
+//                                    System.out.println(response.get("calories").toString());
+                                    try {
+                                        home_page.putExtra("userCalories", response.get("userCalories").toString());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                     startActivity(home_page);
                                 }
                             }, new Response.ErrorListener() {

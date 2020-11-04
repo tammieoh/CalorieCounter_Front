@@ -41,7 +41,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     Button login_button;
     EditText usernameView, passwordView;
-    String username, password;
+    String username, password, goal;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     int counter = 3;
 
@@ -73,15 +73,76 @@ public class MainActivity extends AppCompatActivity {
                 password = passwordView.getText().toString();
 
                 if (username.equals("admin") && password.equals("admin")) {
-                    Intent main_page = new Intent(mContext, HomePage.class);
-//                    weight_page.putExtra("username", username);
-                    startActivity(main_page);
+                    final HashMap<String, String> map1 = new HashMap<String, String>();
+                    map1.put("username", username);
+                    map1.put("password", password);
+                    final RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+                    JsonObjectRequest calorieUserRequest;
+                    calorieUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/getUserCalories", new JSONObject(map1),
+//                        "{\n" +
+//                        "\t\"username\": \"amyoh\",\n" +
+////                                "\t\"username\": \"amyoh\",\n" +
+//                        "\t\"password\": \"amyoh1125\",\n" +
+//                        "\t\"email\": \"amyoh@gmail.com\"\n" +
+//                        "}"),
+
+                            // once the API endpoint returns a response,
+                            // users should be taken to the CalorieCalculator page
+                            new Response.Listener<JSONObject>() {
+                                //                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
+                                //                    Toast .makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+                                //                }
+                                //                else {
+                                //                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                                //                    tx2.setVisibility(View.VISIBLE);
+                                //                    counter--;
+                                //                    tx2.setText("Attempts Left: " + Integer.toString(counter));
+                                //
+                                //                    if (counter == 0) {
+                                //                        login_button.setEnabled(false);
+                                //                    }
+                                //                }
+                                //                RequestQueue queue =  Volley.newRequestQueue(MainActivity.this);
+                                //                JsonObjectRequest registerUserRequest = new JsonObjectRequest
+                                //                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
+                                    try {
+                                        goal = response.get("userCalories").toString();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Intent home_page = new Intent(mContext, HomePage.class);
+                                    home_page.putExtra("userCalories", goal);
+                                    startActivity(home_page);
+//                        CharSequence text = "User Successfully Registered";
+//                        int duration = Toast.LENGTH_LONG;
+//                        Toast toast = Toast.makeText(mContext, text, duration);
+//                        toast.show();
+                                }
+                            }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            JSONObject error_object = null;
+                            if(error.networkResponse.statusCode == 400) {
+                                System.out.println("networkError");
+                            }
+                            System.out.println(error.getMessage());
+                        }
+                    });
+                    requestQueue.add(calorieUserRequest);
+//                    Intent main_page = new Intent(mContext, HomePage.class);
+////                    weight_page.putExtra("username", username);
+//                    startActivity(main_page);
                 } else {
-                    HashMap<String, String> map1 = new HashMap<String, String>();
+                    final HashMap<String, String> map1 = new HashMap<String, String>();
                     map1.put("username", username);
                     map1.put("password", password);
                     // create a Request Queue
-                    RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+                    final RequestQueue requestQueue = Volley.newRequestQueue(mContext);
                     // initialize a new JsonObjectRequest instance
                     JsonObjectRequest registerUserRequest = null;
                     registerUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/login", new JSONObject(map1),
@@ -113,8 +174,70 @@ public class MainActivity extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
                                     //                                    System.out.println((response.getString("username")) + "user successfully logged in!");
-                                    Intent home_page = new Intent(mContext, HomePage.class);
-                                    startActivity(home_page);
+//                                    HashMap<String, String> map1 = new HashMap<String, String>();
+//                                    try {
+//                                        map1.put("username", response.get("username").toString());
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
+
+                                    JsonObjectRequest calorieUserRequest;
+                                    calorieUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/getUserCalories", new JSONObject(map1),
+//                        "{\n" +
+//                        "\t\"username\": \"amyoh\",\n" +
+////                                "\t\"username\": \"amyoh\",\n" +
+//                        "\t\"password\": \"amyoh1125\",\n" +
+//                        "\t\"email\": \"amyoh@gmail.com\"\n" +
+//                        "}"),
+
+                                            // once the API endpoint returns a response,
+                                            // users should be taken to the CalorieCalculator page
+                                            new Response.Listener<JSONObject>() {
+                                                //                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
+                                                //                    Toast .makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+                                                //                }
+                                                //                else {
+                                                //                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                                                //                    tx2.setVisibility(View.VISIBLE);
+                                                //                    counter--;
+                                                //                    tx2.setText("Attempts Left: " + Integer.toString(counter));
+                                                //
+                                                //                    if (counter == 0) {
+                                                //                        login_button.setEnabled(false);
+                                                //                    }
+                                                //                }
+                                                //                RequestQueue queue =  Volley.newRequestQueue(MainActivity.this);
+                                                //                JsonObjectRequest registerUserRequest = new JsonObjectRequest
+                                                //                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                                                @Override
+                                                public void onResponse(JSONObject response) {
+                                                    //                                queue = MySingleton.getInstance(mCtx).getRequestQueue();
+                                                    try {
+                                                        goal = response.get("userCalories").toString();
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    Intent home_page = new Intent(mContext, HomePage.class);
+                                                    home_page.putExtra("userCalories", goal);
+                                                    startActivity(home_page);
+//                        CharSequence text = "User Successfully Registered";
+//                        int duration = Toast.LENGTH_LONG;
+//                        Toast toast = Toast.makeText(mContext, text, duration);
+//                        toast.show();
+                                                }
+                                            }, new Response.ErrorListener() {
+
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            JSONObject error_object = null;
+                                            if(error.networkResponse.statusCode == 400) {
+                                                System.out.println("networkError");
+                                            }
+                                            System.out.println(error.getMessage());
+                                        }
+                                    });
+                                    requestQueue.add(calorieUserRequest);
 //                                CharSequence text = "User Successfully Logged In";
 //                                int duration = Toast.LENGTH_SHORT;
 //                                Toast toast = Toast.makeText(mContext, text, duration);

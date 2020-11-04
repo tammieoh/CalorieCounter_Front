@@ -11,16 +11,26 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class HomePage extends AppCompatActivity {
@@ -31,9 +41,11 @@ public class HomePage extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.Adapter parentItemAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private LinearLayout calorieCalculatorLayout;
+    private TextView goal_text, intake_text, remainder_text;
     private String header = "Calories";
     public static final int CODE = 1;
-    private List<String> myDataset = new ArrayList<String>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Snack"));
+//    private List<String> myDataset = new ArrayList<String>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Snack"));
 
     private List<ChildItem> breakfastItemList = new ArrayList<>();
     private List<ChildItem> lunchItemList = new ArrayList<>();
@@ -41,7 +53,9 @@ public class HomePage extends AppCompatActivity {
     private List<ChildItem> snackItemList = new ArrayList<>();
     private List<ParentItem> itemList = new ArrayList<>();
 
-    private String selectedMeal;
+    private String selectedMeal, username, goal, intake, no_intake;
+    private int remainder;
+
 //    SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
     //    SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
 //    SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -51,11 +65,28 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hContext = getApplicationContext();
+        goal = getIntent().getStringExtra("userCalories");
+        intake = getIntent().getStringExtra("food_calories");
+        System.out.println(goal);
         setContentView(R.layout.activity_home_page);
 //        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         parentRecyclerViewItem = findViewById(R.id.parent_recyclerview);
+        calorieCalculatorLayout = findViewById(R.id.calorie_calculator_layout);
+        goal_text = findViewById(R.id.goal_textView);
+        intake_text = findViewById(R.id.intake_textView);
+        remainder_text = findViewById(R.id.remainder_textView);
 
+        goal_text.setText("Goal " + "\n" + goal);
+        if(intake == null) {
+            intake_text.setText("Intake " + "\n" + "0");
+            remainder_text.setText("Remainder " + "\n" + goal);
+        }
+        else {
+            intake_text.setText("Intake " + "\n" + intake);
+            remainder = Integer.parseInt(goal) - Integer.parseInt(intake);
+            remainder_text.setText("Remainder " + "\n" + Integer.toString(remainder));
+        }
         // Initialise the Linear layout manager
         LinearLayoutManager
                 layoutManager

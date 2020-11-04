@@ -48,6 +48,7 @@ public class SearchPage extends AppCompatActivity {
     ArrayList<String> newList = new ArrayList<>();
 
     String item = "";
+    String calories;
 //    private void getArrayValue(){
 //        for(int i = 0; i < mylist.size(); i++) {
 //            newList.add(mylist.get(i));
@@ -145,7 +146,7 @@ public class SearchPage extends AppCompatActivity {
 //                                    editor.putString("name", item);
 //                                    editor.commit();
 
-                                    System.out.println(response.getString("calories"));
+                                    calories = response.getString("calories");
                                     Toast toast = Toast.makeText(sContext, response.getString("calories"),Toast.LENGTH_LONG);
                                     toast.show();
                                 } catch (JSONException e) {
@@ -153,6 +154,7 @@ public class SearchPage extends AppCompatActivity {
                                 }
                                 Intent home_page = new Intent(sContext, HomePage.class);
                                 home_page.putExtra("name", item);
+                                home_page.putExtra("food_calories", calories);
                                 setResult(HomePage.CODE, home_page);
                                 finish();
                             }

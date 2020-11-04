@@ -8,11 +8,10 @@
     <!--Title: Breakfast, Lunch, Snack. or Dinner-->
     <TextView
         android:id="@+id/parent_item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="398dp"
+        android:layout_height="88dp"
         android:padding="12sp"
-        android:textSize="18sp"
-        />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,8 +22,8 @@
         <!--Child RecyclerView-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/child_recyclerview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="415dp"
+            android:layout_height="match_parent" />
 <!--            android:layout_width="401dp"-->
 <!--            android:layout_height="342dp" />-->
     </LinearLayout>
