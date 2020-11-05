@@ -123,10 +123,10 @@ public class SearchPage extends AppCompatActivity {
                                     long id) {
                 item = adapter.getItem(position);
 
-                SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("name", item);
-                editor.apply();
+//                SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putString("name", item);
+//                editor.apply();
 
                 System.out.println(item);
 
@@ -153,9 +153,14 @@ public class SearchPage extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 Intent home_page = new Intent(sContext, HomePage.class);
+//                                Bundle extras = new Bundle();
+//                                extras.putString("name", item);
+//                                extras.putString("food_calories", calories);
+//                                home_page.putExtras(extras);
                                 home_page.putExtra("name", item);
                                 home_page.putExtra("food_calories", calories);
                                 setResult(HomePage.CODE, home_page);
+//                                startActivity(home_page);
                                 finish();
                             }
                         }, new Response.ErrorListener() {
@@ -186,6 +191,7 @@ public class SearchPage extends AppCompatActivity {
     public void finish() {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("name", item);
+        returnIntent.putExtra("food_calories", calories);
         // setResult(RESULT_OK);
         setResult(RESULT_OK, returnIntent); //By not passing the intent in the result, the calling activity will get null data.
         super.finish();

@@ -54,7 +54,7 @@ public class HomePage extends AppCompatActivity {
     private List<ParentItem> itemList = new ArrayList<>();
 
     private String selectedMeal, username, goal, intake, no_intake;
-    private int remainder;
+    private int remainder, intake_sum, remainder_sum;
 
 //    SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
     //    SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
@@ -66,7 +66,11 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hContext = getApplicationContext();
         goal = getIntent().getStringExtra("userCalories");
-        intake = getIntent().getStringExtra("food_calories");
+        System.out.println("in onCreate()");
+        intake = "0";
+        intake_sum = 0;
+//        remainder_sum = goal;
+//        remainder_text = goal;
         System.out.println(goal);
         setContentView(R.layout.activity_home_page);
 //        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -78,15 +82,16 @@ public class HomePage extends AppCompatActivity {
         remainder_text = findViewById(R.id.remainder_textView);
 
         goal_text.setText("Goal " + "\n" + goal);
-        if(intake == null) {
-            intake_text.setText("Intake " + "\n" + "0");
+        intake_text.setText("Intake " + "\n" + intake);
+//        if(intake == null) {
+//            intake_text.setText("Intake " + "\n" + "0");
+//            remainder_text.setText("Remainder " + "\n" + goal);
+//        }
+//        else {
+//            intake_text.setText("Intake " + "\n" + intake);
+//            remainder = Integer.parseInt(goal) - Integer.parseInt(intake);
             remainder_text.setText("Remainder " + "\n" + goal);
-        }
-        else {
-            intake_text.setText("Intake " + "\n" + intake);
-            remainder = Integer.parseInt(goal) - Integer.parseInt(intake);
-            remainder_text.setText("Remainder " + "\n" + Integer.toString(remainder));
-        }
+//        }
         // Initialise the Linear layout manager
         LinearLayoutManager
                 layoutManager
@@ -216,12 +221,80 @@ public class HomePage extends AppCompatActivity {
 
         return snackItemList;
     }
+
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        System.out.println("in pause");
+//    }
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        intake = getIntent().getStringExtra("food_calories");
+////        System.out.println
+//        System.out.println("in resume");
+//        if (intake == null) {
+//            System.out.println("intake is null");
+//            intake_text.setText("Intake " + "\n" + "0");
+//            remainder_text.setText("Remainder " + "\n" + goal);
+//        } else {
+//            intake_text.setText("Intake " + "\n" + intake);
+//            remainder = Integer.parseInt(goal) - Integer.parseInt(intake);
+//            remainder_text.setText("Remainder " + "\n" + goal);
+//        }
+//    }
+////        addEntryButton = (FloatingActionButton) findViewById(R.id.addEntryButton);
+////        addEntryButton.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+//////                RequestQueue requestQueue;
+////                PopupMenu popup = new PopupMenu(HomePage.this, addEntryButton);
+////                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+////
+////                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+////                    @Override
+////                    public boolean onMenuItemClick(MenuItem item) {
+//////                        // create a Request Queue
+//////                        RequestQueue requestQueue = Volley.newRequestQueue(hContext);
+//////                        // initialize a new JsonObjectRequest instance
+//////                        JsonObjectRequest searchUserRequest = null;
+////                        selectedMeal = item.toString();
+////                        System.out.println("about to go into search page");
+////                        Intent search_page = new Intent(hContext, SearchPage.class);
+////                        startActivityForResult(search_page, CODE);
+////
+////                        Toast.makeText(HomePage.this, "You Clicked: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+////                        return true;
+////                    }
+////                });
+////                popup.show();
+//            }
+////        });
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CODE && resultCode == RESULT_OK) {
+           System.out.println(data.getExtras());
            String passedItem = data.getExtras().getString("name");
+           intake = data.getExtras().getString("food_calories");
+
+            if(intake == null) {
+                System.out.println("intake is null");
+                intake_text.setText("Intake " + "\n" + "0");
+                remainder_text.setText("Remainder " + "\n" + goal);
+            }
+            else {
+                intake_sum += Integer.parseInt(intake);
+                intake = Integer.toString(intake_sum);
+                System.out.println(intake + " --> onResume()");
+                intake_text.setText("Intake " + "\n" + intake);
+                remainder = Integer.parseInt(goal) - Integer.parseInt(intake);
+                remainder_text.setText("Remainder " + "\n" + remainder);
+            }
+
            if(selectedMeal.toLowerCase().equals("breakfast")) {
                BreakfastList((passedItem));
            }
@@ -239,6 +312,12 @@ public class HomePage extends AppCompatActivity {
 //            parentItemAdapter.
            parentItemAdapter.notifyDataSetChanged();
            System.out.println(passedItem + "has been added to the home page");
+
+//           Bundle extras = getIntent().getExtras();
+//            intake = getIntent().getStringExtra("food_calories");
+//            System.out.println(getIntent());
+//            System.out.println(intake);
+//        System.out.println
         }
     }
 }
