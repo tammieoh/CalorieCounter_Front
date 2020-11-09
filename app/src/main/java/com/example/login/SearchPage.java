@@ -88,7 +88,7 @@ public class SearchPage extends AppCompatActivity {
 //            }
 //        });
 //        RequestFuture<JSONArray> future = RequestFuture.newFuture();
-        searchUserRequest = new JsonArrayRequest(Request.Method.GET, "http://192.168.0.15:8080/getFoods", null,
+        searchUserRequest = new JsonArrayRequest(Request.Method.GET, "http://10.0.2.2:8080/getFoods", null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -135,7 +135,7 @@ public class SearchPage extends AppCompatActivity {
                 map1.put("item", item);
                 RequestQueue requestQueue = Volley.newRequestQueue(sContext);
                 JsonObjectRequest calorieRequest = null;
-                calorieRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/getCalories", new JSONObject(map1),
+                calorieRequest = new JsonObjectRequest(Request.Method.POST, "http://10.0.2.2:8080/getCalories", new JSONObject(map1),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

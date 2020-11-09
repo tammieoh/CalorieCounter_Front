@@ -20,6 +20,7 @@
             android:layout_height="100dp"
             android:gravity="start"
             android:text="entry1"
+            android:fontFamily="@font/nexa_normal"
             android:background="@drawable/black_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

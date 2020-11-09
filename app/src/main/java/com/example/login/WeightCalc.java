@@ -254,7 +254,7 @@ public class WeightCalc extends AppCompatActivity {
                     System.out.println(map1);
                     RequestQueue requestQueue = Volley.newRequestQueue(wContext);
                     JsonObjectRequest calorieRequest = null;
-                    calorieRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/calories", new JSONObject(map1),
+                    calorieRequest = new JsonObjectRequest(Request.Method.POST, "http://10.0.2.2:8080/calories", new JSONObject(map1),
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -263,7 +263,7 @@ public class WeightCalc extends AppCompatActivity {
 //                                    home_page.putExtra("username", username);
 //                                    System.out.println(response.get("calories").toString());
                                     try {
-                                        home_page.putExtra("userCalories", response.get("userCalories").toString());
+                                        home_page.putExtra("userCalories", response.get("calories").toString());
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

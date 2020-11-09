@@ -74,6 +74,12 @@ public class SignUp extends AppCompatActivity {
 
             // if the username, password, email is of a new user
             // store the information into a hashmap and create a JSON body request to send to API endpoint
+            else if(username.equals("") || password.equals("") || email.equals("")) {
+                CharSequence text = "Error. Please enter details";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(mContext, text, duration);
+                toast.show();
+            }
             else {
                 HashMap<String, String> map1 = new HashMap<String, String>();
                 map1.put("username", username);
@@ -83,7 +89,7 @@ public class SignUp extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(mContext);
                 // initialize a new JsonObjectRequest instance
                 JsonObjectRequest registerUserRequest = null;
-                registerUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/registerUser", new JSONObject(map1),
+                registerUserRequest = new JsonObjectRequest(Request.Method.POST, "http://10.0.2.2:8080/registerUser", new JSONObject(map1),
 //                        "{\n" +
 //                        "\t\"username\": \"amyoh\",\n" +
 ////                                "\t\"username\": \"amyoh\",\n" +

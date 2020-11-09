@@ -72,13 +72,16 @@ public class MainActivity extends AppCompatActivity {
                 username = usernameView.getText().toString();
                 password = passwordView.getText().toString();
 
+                System.out.println("Login Button Clicked");
+
                 if (username.equals("admin") && password.equals("admin")) {
                     final HashMap<String, String> map1 = new HashMap<String, String>();
                     map1.put("username", username);
                     map1.put("password", password);
                     final RequestQueue requestQueue = Volley.newRequestQueue(mContext);
                     JsonObjectRequest calorieUserRequest;
-                    calorieUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/getUserCalories", new JSONObject(map1),
+                    System.out.println("about to make request");
+                    calorieUserRequest = new JsonObjectRequest(Request.Method.POST, "http://10.0.2.2:8080/getUserCalories", new JSONObject(map1),
 //                        "{\n" +
 //                        "\t\"username\": \"amyoh\",\n" +
 ////                                "\t\"username\": \"amyoh\",\n" +
@@ -137,7 +140,14 @@ public class MainActivity extends AppCompatActivity {
 //                    Intent main_page = new Intent(mContext, HomePage.class);
 ////                    weight_page.putExtra("username", username);
 //                    startActivity(main_page);
-                } else {
+                }
+                else if(username.equals("") || password.equals("")) {
+                    CharSequence text = "Error. Please enter details";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(mContext, text, duration);
+                    toast.show();
+                }
+                else {
                     final HashMap<String, String> map1 = new HashMap<String, String>();
                     map1.put("username", username);
                     map1.put("password", password);
@@ -145,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     final RequestQueue requestQueue = Volley.newRequestQueue(mContext);
                     // initialize a new JsonObjectRequest instance
                     JsonObjectRequest registerUserRequest = null;
-                    registerUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/login", new JSONObject(map1),
+                    registerUserRequest = new JsonObjectRequest(Request.Method.POST, "http://10.0.2.2:8080/login", new JSONObject(map1),
 //                        "{\n" +
 //                        "\t\"username\": \"amyoh\",\n" +
 ////                                "\t\"username\": \"amyoh\",\n" +
@@ -182,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 //                                    }
 
                                     JsonObjectRequest calorieUserRequest;
-                                    calorieUserRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.0.15:8080/getUserCalories", new JSONObject(map1),
+                                    calorieUserRequest = new JsonObjectRequest(Request.Method.POST, "http:/10.0.2.2:8080/getUserCalories", new JSONObject(map1),
 //                        "{\n" +
 //                        "\t\"username\": \"amyoh\",\n" +
 ////                                "\t\"username\": \"amyoh\",\n" +

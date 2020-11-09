@@ -47,13 +47,16 @@ public class HomePage extends AppCompatActivity {
     public static final int CODE = 1;
 //    private List<String> myDataset = new ArrayList<String>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Snack"));
 
+    private String breakfastCalories = "0", lunchCalories = "0", dinnerCalories = "0", snackCalories = "0";
+
+
     private List<ChildItem> breakfastItemList = new ArrayList<>();
     private List<ChildItem> lunchItemList = new ArrayList<>();
     private List<ChildItem> dinnerItemList = new ArrayList<>();
     private List<ChildItem> snackItemList = new ArrayList<>();
     private List<ParentItem> itemList = new ArrayList<>();
 
-    private String selectedMeal, username, goal, intake, no_intake;
+    private String selectedMeal, username, goal, intake, calorie_total_title;
     private int remainder, intake_sum, remainder_sum;
 
 //    SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
@@ -80,6 +83,7 @@ public class HomePage extends AppCompatActivity {
         goal_text = findViewById(R.id.goal_textView);
         intake_text = findViewById(R.id.intake_textView);
         remainder_text = findViewById(R.id.remainder_textView);
+//        calorie_total_title = findViewById(R.id.calorie_total_title);
 
         goal_text.setText("Goal " + "\n" + goal);
         intake_text.setText("Intake " + "\n" + intake);
@@ -166,21 +170,22 @@ public class HomePage extends AppCompatActivity {
         ParentItem item
                 = new ParentItem(
                 "Breakfast",
+                breakfastCalories,
                 breakfastItemList);
         itemList.add(item);
         ParentItem item1
                 = new ParentItem(
-                "Lunch",
+                "Lunch", lunchCalories,
                 lunchItemList);
         itemList.add(item1);
         ParentItem item2
                 = new ParentItem(
-                "Dinner",
+                "Dinner", snackCalories,
                 dinnerItemList);
         itemList.add(item2);
         ParentItem item3
                 = new ParentItem(
-                "Snack",
+                "Snack", dinnerCalories,
                 snackItemList);
         itemList.add(item3);
 
@@ -192,7 +197,6 @@ public class HomePage extends AppCompatActivity {
     // of child RecyclerView
     private List<ChildItem> BreakfastList(String food)
     {
-
         breakfastItemList.add(new ChildItem(food));
 //        breakfastItemList.add(new ChildItem("Card 2"));
 //        breakfastItemList.add(new ChildItem("Card 3"));
@@ -200,6 +204,14 @@ public class HomePage extends AppCompatActivity {
 
         return breakfastItemList;
     }
+//    private String breakfastCalorie(String intake) {
+//        breakfastCalories = new String(intake);
+//        return breakfastCalories;
+//    }
+//    private String breakfastCalories(String intake) {
+//        breakfastCalories = intake;
+//        return breakfastCalories;
+//    }
     private List<ChildItem> LunchList(String food)
     {
 
@@ -296,28 +308,33 @@ public class HomePage extends AppCompatActivity {
             }
 
            if(selectedMeal.toLowerCase().equals("breakfast")) {
-               BreakfastList((passedItem));
+               BreakfastList(passedItem);
+               this.breakfastCalories = intake;
+               ((ParentAdapter) parentItemAdapter).itemList.get(0).setParentCalorie(breakfastCalories);
            }
            else if (selectedMeal.toLowerCase().equals("lunch")) {
-               LunchList((passedItem));
+//               breakfastCalorie(intake);
+               LunchList(passedItem);
+               this.lunchCalories = intake;
+               ((ParentAdapter) parentItemAdapter).itemList.get(1).setParentCalorie(lunchCalories);
            }
            else if(selectedMeal.toLowerCase().equals("dinner")) {
-                DinnerList((passedItem));
+//               breakfastCalorie(intake);
+                DinnerList(passedItem);
+               this.dinnerCalories = intake;
+               ((ParentAdapter) parentItemAdapter).itemList.get(2).setParentCalorie(dinnerCalories);
            }
            else {
-               SnackList((passedItem));
+//               breakfastCalorie(intake);
+               SnackList(passedItem);
+               this.snackCalories = intake;
+               ((ParentAdapter) parentItemAdapter).itemList.get(3).setParentCalorie(snackCalories);
            }
 //           parentItemAdapter = new ParentAdapter(ParentItemList(breakfastItemList, lunchItemList, dinnerItemList, snackItemList));
 //           myDataset.add(passedItem);
 //            parentItemAdapter.
            parentItemAdapter.notifyDataSetChanged();
            System.out.println(passedItem + "has been added to the home page");
-
-//           Bundle extras = getIntent().getExtras();
-//            intake = getIntent().getStringExtra("food_calories");
-//            System.out.println(getIntent());
-//            System.out.println(intake);
-//        System.out.println
         }
     }
 }

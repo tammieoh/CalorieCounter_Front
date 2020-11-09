@@ -17,10 +17,15 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
             viewPool
             = new RecyclerView
             .RecycledViewPool();
+//    String breakfastCalories, lunchCalories, dinnerCalories, snackCalories;
     List<ParentItem> itemList;
 
     ParentAdapter(List<ParentItem> itemList)
     {
+//        this.breakfastCalories = breakfastCalories;
+//        this.lunchCalories = lunchCalories;
+//        this.dinnerCalories = dinnerCalories;
+//        this.snackCalories = snackCalories;
         this.itemList = itemList;
     }
 
@@ -59,7 +64,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
         parentViewHolder
                 .ParentItemTitle
                 .setText(parentItem.getParentItemTitle());
-
+        parentViewHolder.parentCalorie.setText(parentItem.getParentCalorie());
         // Create a layout manager
         // to assign a layout
         // to the RecyclerView.
@@ -124,6 +129,7 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
             extends RecyclerView.ViewHolder {
 
         private TextView ParentItemTitle;
+        private TextView parentCalorie;
         private RecyclerView ChildRecyclerView;
 
         ParentViewHolder(final View itemView)
@@ -134,6 +140,10 @@ public class ParentAdapter extends RecyclerView.Adapter<ParentAdapter.ParentView
                     = itemView
                     .findViewById(
                             R.id.parent_item_title);
+            parentCalorie
+                    = itemView
+                    .findViewById(
+                            R.id.calorie_total_title);
             ChildRecyclerView
                     = itemView
                     .findViewById(

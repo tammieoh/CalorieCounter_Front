@@ -14,7 +14,7 @@
     <string name="weight_label">Weight (lbs):</string>
     <string name="height_label">Height (ft/in):</string>
     <string name="body_fat">Desired Body Fat Percentage Loss:</string>
-    <string name="confirm_button">Confirm:</string>
+    <string name="confirm_button">Confirm</string>
     <string name="calorie_calc">Calorie Calculator</string>
     <string name="sex">Sex:</string>
     <string name="age">Age:</string>
