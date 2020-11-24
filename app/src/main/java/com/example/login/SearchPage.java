@@ -96,7 +96,7 @@ public class SearchPage extends AppCompatActivity {
                             try {
                                 JSONObject object = response.getJSONObject(i);
                                // System.out.println(object.getString("Name"));
-                                mylist.add(object.getString("Name"));
+                                mylist.add(object.getString("Item"));
 //                                getArrayValue();
                             } catch (JSONException e) {
                                 e.printStackTrace();
