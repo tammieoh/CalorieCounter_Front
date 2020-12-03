@@ -48,7 +48,7 @@ public class HomePage extends AppCompatActivity {
 //    private List<String> myDataset = new ArrayList<String>(Arrays.asList("Breakfast", "Lunch", "Dinner", "Snack"));
 
     private String breakfastCalories = "0", lunchCalories = "0", dinnerCalories = "0", snackCalories = "0";
-
+    private int breakfast_total = 0, lunch_total = 0, dinner_total = 0, snack_total = 0;
 
     private List<ChildItem> breakfastItemList = new ArrayList<>();
     private List<ChildItem> lunchItemList = new ArrayList<>();
@@ -56,8 +56,8 @@ public class HomePage extends AppCompatActivity {
     private List<ChildItem> snackItemList = new ArrayList<>();
     private List<ParentItem> itemList = new ArrayList<>();
 
-    private String selectedMeal, username, goal, intake, calorie_total_title;
-    private int remainder, intake_sum, remainder_sum;
+    private String selectedMeal, username, goal, intake, intake_sum_string, calorie_total_title;
+    private int remainder, intake_sum;
 
 //    SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
     //    SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
@@ -300,34 +300,38 @@ public class HomePage extends AppCompatActivity {
             }
             else {
                 intake_sum += Integer.parseInt(intake);
-                intake = Integer.toString(intake_sum);
-                System.out.println(intake + " --> onResume()");
-                intake_text.setText("Intake " + "\n" + intake);
+                intake_sum_string = Integer.toString(intake_sum);
+                System.out.println(intake_sum_string + " --> onResume()");
+                intake_text.setText("Intake " + "\n" + intake_sum_string);
                 remainder = Integer.parseInt(goal) - Integer.parseInt(intake);
                 remainder_text.setText("Remainder " + "\n" + remainder);
             }
 
            if(selectedMeal.toLowerCase().equals("breakfast")) {
                BreakfastList(passedItem);
-               this.breakfastCalories = intake;
+               this.breakfast_total += Integer.parseInt(intake);
+               this.breakfastCalories = Integer.toString(breakfast_total);
                ((ParentAdapter) parentItemAdapter).itemList.get(0).setParentCalorie(breakfastCalories);
            }
            else if (selectedMeal.toLowerCase().equals("lunch")) {
 //               breakfastCalorie(intake);
                LunchList(passedItem);
-               this.lunchCalories = intake;
+               this.lunch_total += Integer.parseInt(intake);
+               this.lunchCalories = Integer.toString(lunch_total);
                ((ParentAdapter) parentItemAdapter).itemList.get(1).setParentCalorie(lunchCalories);
            }
            else if(selectedMeal.toLowerCase().equals("dinner")) {
 //               breakfastCalorie(intake);
                 DinnerList(passedItem);
-               this.dinnerCalories = intake;
+               this.dinner_total += Integer.parseInt(intake);
+               this.dinnerCalories = Integer.toString(dinner_total);
                ((ParentAdapter) parentItemAdapter).itemList.get(2).setParentCalorie(dinnerCalories);
            }
            else {
 //               breakfastCalorie(intake);
                SnackList(passedItem);
-               this.snackCalories = intake;
+               this.snack_total += Integer.parseInt(intake);
+               this.snackCalories = Integer.toString(snack_total);
                ((ParentAdapter) parentItemAdapter).itemList.get(3).setParentCalorie(snackCalories);
            }
 //           parentItemAdapter = new ParentAdapter(ParentItemList(breakfastItemList, lunchItemList, dinnerItemList, snackItemList));
